@@ -22,15 +22,15 @@ const Login = () => {
   }
 
   return (
-    <div className="flex justify-center h-[calc(100vh-150px)] items-center flex-col lg:flex-row-reverse gap-10 lg:gap-20 xl:gap-32">
-      <img src={signin} className="w-96 lg:max-w-[500px] lg:w-[40%]" alt="sign in svg" />
-      <form onSubmit={handleSubmit} className="grid grid-cols-4 gap-3 w-96">
-        <h1 className="col-span-4 text-center text-4xl mb-5 font-light">
+    <div className="flex justify-center h-[calc(100vh-115px)] items-center flex-col lg:flex-row-reverse gap-10 lg:gap-20 xl:gap-32">
+      <img src={signin} className="w-72 md:w-96 lg:max-w-[500px] lg:w-[40%]" alt="sign in svg" />
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-72 md:w-96">
+        <h1 className="text-center text-4xl mb-5 font-light">
           Login
         </h1>
-        <input ref={email} type="email" className="col-span-2 lg:col-span-4" placeholder="Email" required/>
-        <input ref={password} type="password" className="col-span-2 lg:col-span-4" placeholder="Password" required/>
-        <button className="outline outline-1 px-2 py-1 rounded col-start-2 col-end-4 hover:text-white hover:bg-black transition-colors mt-3">
+        <input ref={email} type="email" className="" placeholder="Email" required/>
+        <input ref={password} type="password" className="" placeholder="Password" required/>
+        <button className="outline outline-1 w-36 md:w-52 py-1 rounded self-center hover:text-white hover:bg-black transition-colors mt-3">
           Login
         </button>
       </form>

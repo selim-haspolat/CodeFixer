@@ -16,7 +16,6 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log(user);
       if (user) {
         const { email, displayName, photoURL } = user;
         setUser({ email, displayName, photoURL });
@@ -34,7 +33,6 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
       await createUserWithEmailAndPassword(auth, email, password);
       const user = auth.currentUser;
       if (user) {
-        console.log(user);
         await updateProfile(user, {
           displayName: `${name} ${surename}`,
           photoURL: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png',
