@@ -1,24 +1,68 @@
-import {useRef} from 'react'
+import { setDoc, doc, getDocs, collection, getDoc } from "firebase/firestore";
+import { useRef } from "react";
+import { db } from "../auth/firebase";
 import { useAuthContext } from "../context/AuthContext";
+import { SetCommentInfo } from "../models/comments.model";
+import { Problems } from "../models/displayProblems.model";
 
-const CreateComment = () => {
-  const {user} = useAuthContext()
-  const commentInput = useRef<HTMLInputElement>(null)
+const CreateComment = ({
+  commentInfo,
+  setCommentInfo,
+  setFirst,
+}: SetCommentInfo) => {
+  const { user } = useAuthContext();
+  const commentInput = useRef<HTMLInputElement>(null);
 
-  const addComment = () => {
-    
-  }
+  const addComment = async () => {
+    await setDoc(doc(db, "problems", `${commentInfo?.id}`), {
+      ...commentInfo,
+      comments: commentInfo?.comments
+        ? [
+            ...commentInfo?.comments,
+            {
+              comment: commentInput?.current?.value,
+              sender: user?.displayName,
+              senderPhoto: user?.photoURL,
+            },
+          ]
+        : [
+            {
+              comment: commentInput?.current?.value,
+              sender: user?.displayName,
+              senderPhoto: user?.photoURL,
+            },
+          ],
+    });
 
-  const handleSubmitComment = () =>{
+    setFirst?.(`${new Date().getTime()}`);
 
-  }
+    const docRef = doc(db, "problems", `${commentInfo?.id}`);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      setCommentInfo(
+        (prevState) =>
+          ({ ...prevState, ...docSnap.data(), id: docSnap.id } as Problems)
+      );
+    } else {
+      console.log("No such document!");
+    }
+  };
+
+  const handleSubmitComment = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    addComment();
+    if (commentInput.current) {
+      commentInput.current.value = "";
+    }
+  };
 
   return (
     <div className="rounded bg-white m-4 border border-gray-200 py-5">
-      <div className="flex justify-center items-center w-96 md:w-[500px] h-14 rounded mx-auto md:px-3">
+      <div className="flex justify-center items-center w-72   md:w-[500px] h-14 rounded mx-auto md:px-3">
         <form
-          // onSubmit={handleSubmitComment}
-          className="relative flex w-[95%] justify-between items-center"
+          onSubmit={handleSubmitComment}
+          className="relative flex gap-3 w-[95%] justify-between items-center"
         >
           <img
             src={
@@ -31,7 +75,7 @@ const CreateComment = () => {
           <input
             ref={commentInput}
             type={"text"}
-            className="w-[85%] py-1.5 pl-4 pr-10 rounded-full"
+            className="w-[85%] md:py-1.5 pl-4 pr-10 rounded-full"
             placeholder="Enter a comment"
             required
           />
@@ -59,10 +103,7 @@ const CreateComment = () => {
                 </g>
               </svg>
             </button>
-            <button
-              type="submit"
-              className="absolute w-10 z-[2]"
-            >
+            <button type="submit" className="absolute w-10 z-[2]">
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -109,7 +150,6 @@ const CreateComment = () => {
           </div>
         </form>
       </div>
-
     </div>
   );
 };

@@ -37,10 +37,10 @@ const CreateCodingProblem = ({
 
   return (
     <div>
-      <div className="flex justify-center items-center w-96 md:w-[500px] h-14 rounded mx-auto mt-10 md:px-3">
+      <div className="flex justify-center items-center w-72  md:w-[500px] h-14 rounded mx-auto mt-10 md:px-3">
         <form
           onSubmit={handleSubmitProblem}
-          className="relative flex w-[95%] justify-between items-center"
+          className="relative flex w-[95%] gap-3 justify-between items-center"
         >
           <img
             src={

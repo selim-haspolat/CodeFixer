@@ -19,13 +19,11 @@ const DisplayCodingProblems = ({
 
   const getProblems = async () => {
     const querySnapshot = await getDocs(collection(db, "problems"));
-    console.log(querySnapshot);
     const newProblems = querySnapshot.docs.map((doc) => {
       return {...doc.data(),id:doc.id} as Problems;
     });
     setProblems(newProblems);
   };
-
   
   useEffect(() => {
     getProblems();

@@ -60,11 +60,10 @@ const CodingProblemCard = (props: Props) => {
     setCommentInfo(problem)
   }
 
-  useEffect(() => {}, [interested]);
 
   return (
     <div className="rounded overflow-hidden shadow-sm hover:shadow-lg transition-shadow m-4 border border-gray-200">
-      <div className="flex gap-3 justify-between p-3 pr-5">
+      <div className="flex gap-3 items-center p-3 pr-5">
         <img
           className="w-12 h-12 rounded-full"
           src={problem.userImage}

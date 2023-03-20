@@ -1,10 +1,15 @@
 import { SetCommentInfo } from "../models/comments.model";
+import CommentCard from "./CommentCard";
 import CreateComment from "./CreateComment";
 
-const CommentsModal = ({ setCommentInfo, commentInfo }: SetCommentInfo) => {
+const CommentsModal = ({
+  setCommentInfo,
+  commentInfo,
+  setFirst,
+}: SetCommentInfo) => {
   return (
     <div
-      className={`fixed z-[5] top-[30%] left-[50%] translate-x-[-50%] translate-y-[-30%] bg-blue-50/40 backdrop-blur-sm border border-gray-200 container rounded py-5 ${
+      className={`fixed z-[5] top-[30%] left-[50%] translate-x-[-50%] translate-y-[-30%] bg-blue-100/20 backdrop-blur-sm border border-gray-200 container rounded py-5 ${
         commentInfo || "hidden"
       }`}
     >
@@ -34,13 +39,13 @@ const CommentsModal = ({ setCommentInfo, commentInfo }: SetCommentInfo) => {
             src={commentInfo?.userImage}
             alt="Profile"
           />
-          <div className="font-bold">{commentInfo?.user}</div>
+          <div className="">{commentInfo?.name}</div>
         </div>
         <code className="text-gray-700 text-base px-6">
           {commentInfo?.description}
         </code>
-        <div className="flex gap-7 px-5 py-3 justify-end">
-          <button className="flex items-center">
+        <div className="flex gap-7 px-5 pb-1 justify-end">
+          <span className="flex items-center">
             <svg
               className="w-6 mr-1"
               viewBox="0 0 24 24"
@@ -66,14 +71,17 @@ const CommentsModal = ({ setCommentInfo, commentInfo }: SetCommentInfo) => {
             <span className={`text-sm ${true && "text-[#00eeff]"}`}>
               {commentInfo?.interesting.length}
             </span>
-          </button>
+          </span>
         </div>
       </div>
-      <CreateComment/>
-      <div className="py-5 mx-4 rounded border border-gray-200 bg-white">
-        {commentInfo?.interesting?.length &&
-        commentInfo?.comments?.length > 0 ? (
-          ""
+      <CreateComment
+        commentInfo={commentInfo}
+        setFirst={setFirst}
+        setCommentInfo={setCommentInfo}
+      />
+      <div className="py-5 mx-4 rounded border border-gray-200 bg-white max-h-[40vh] overflow-auto">
+        {commentInfo && commentInfo?.comments?.length > 0 ? (
+          commentInfo?.comments.map((c, i) => <CommentCard key={i} {...c} />)
         ) : (
           <div className="flex justify-center items-center gap-2">
             <div className="w-24 h-[0.5px] bg-black"></div>

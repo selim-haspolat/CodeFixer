@@ -1,6 +1,7 @@
-interface Comments {
+export interface Comments {
   sender: string,
-  comment: string,
+  senderPhoto: string,
+  comment: string ,
 }
 
 export interface Problems {

@@ -11,7 +11,7 @@ const CodingProblems = () => {
     <div>
       <CreateCodingProblem setFirst={setFirst} first={first}/>
       <DisplayCodingProblems setCommentInfo={setCommentInfo} commentInfo={commentInfo} first={first} setFirst={setFirst}/>
-      <CommentsModal setCommentInfo={setCommentInfo} commentInfo={commentInfo}/>
+      <CommentsModal setCommentInfo={setCommentInfo} commentInfo={commentInfo} setFirst={setFirst}/>
     </div>
   )
 }
