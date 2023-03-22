@@ -9,7 +9,7 @@ const CommentsModal = ({
 }: SetCommentInfo) => {
   return (
     <div
-      className={`fixed z-[5] top-[30%] left-[50%] translate-x-[-50%] translate-y-[-30%] bg-blue-100/20 backdrop-blur-sm border border-gray-200 container rounded py-5 ${
+      className={`fixed z-[5] top-[30%] left-[50%] translate-x-[-50%] translate-y-[-30%] bg-blue-50/70 border border-gray-200 container rounded py-5 ${
         commentInfo || "hidden"
       }`}
     >
@@ -79,13 +79,13 @@ const CommentsModal = ({
         setFirst={setFirst}
         setCommentInfo={setCommentInfo}
       />
-      <div className="py-5 mx-4 rounded border border-gray-200 bg-white max-h-[40vh] overflow-auto">
+      <div className="mx-4 rounded border border-gray-200 bg-white max-h-[30vh] overflow-auto">
         {commentInfo && commentInfo?.comments?.length > 0 ? (
           commentInfo?.comments.map((c, i) => <CommentCard key={i} {...c} />)
         ) : (
           <div className="flex justify-center items-center gap-2">
             <div className="w-24 h-[0.5px] bg-black"></div>
-            <div className="font-light">No Comments</div>
+            <div className="font-light py-2">No Comments</div>
             <div className="w-24 h-[0.5px] bg-black"></div>
           </div>
         )}

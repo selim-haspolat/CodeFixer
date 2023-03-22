@@ -107,9 +107,19 @@ const Navbar = () => {
       </nav>
       <ul
         className={`absolute bg-black w-full top-16 flex flex-col gap-3 ${
-          showHamburgerMenu ? "h-20 px-6 pb-3" : "h-0"
+          showHamburgerMenu ? "h-28 px-6 pb-3" : "h-0"
         } sm:h-0 sm:pb-0 sm:px-0 duration-300 transition-all overflow-hidden z-10`}
       >
+        <li>
+          <Link
+            to="/"
+            className={`text-white disabled:text-black/30 [&.active]:text-black/90 dark:[&.active]:text-neutral-400 opacity-0 duration-500 pr-2 text-xl font-semibold ${
+              showHamburgerMenu && "!opacity-100"
+            }`}
+          >
+            CodeFixer
+          </Link>
+        </li>
         <li>
           <Link
             to="/coding-problems"

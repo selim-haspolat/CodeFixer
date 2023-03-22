@@ -1,22 +1,23 @@
 import { doc, setDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { db } from "../auth/firebase";
 import { useAuthContext } from "../context/AuthContext";
 import { Problems } from "../models/displayProblems.model";
-
 
 interface Props {
   problem: Problems;
   setFirst?: React.Dispatch<React.SetStateAction<string | null>>;
   first?: string | null;
-  setCommentInfo:React.Dispatch<React.SetStateAction<Problems | null>>;
-  commentInfo:Problems | null;
+  setCommentInfo: React.Dispatch<React.SetStateAction<Problems | null>>;
+  commentInfo: Problems | null;
 }
 
 const CodingProblemCard = (props: Props) => {
   const [interested, setInterested] = useState(false);
   const { user } = useAuthContext();
-  const { problem, setFirst,setCommentInfo,commentInfo } = props;
+  const { problem, setFirst, setCommentInfo, commentInfo } = props;
+  const navigate = useNavigate();
   const getInteresteds = async () => {
     if (
       problem.interesting.includes(
@@ -57,15 +58,19 @@ const CodingProblemCard = (props: Props) => {
   };
 
   const displayComments = () => {
-    setCommentInfo(problem)
-  }
+    setCommentInfo(problem);
+  };
 
+  console.log(problem);
 
   return (
     <div className="rounded overflow-hidden shadow-sm hover:shadow-lg transition-shadow m-4 border border-gray-200">
       <div className="flex gap-3 items-center p-3 pr-5">
         <img
-          className="w-12 h-12 rounded-full"
+          onClick={() =>
+            navigate(`/profile/${problem.name}`, { state: problem })
+          }
+          className="w-12 h-12 rounded-full cursor-pointer"
           src={problem.userImage}
           alt="Profile"
         />
