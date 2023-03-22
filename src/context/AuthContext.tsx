@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../auth/firebase";
+import { errorAlert, successAlert } from "../components/SweetAler";
 import { User, AuthContextProps } from "../models/auth.model";
 
 export const AuthContext = createContext({} as AuthContextProps);
@@ -43,17 +44,18 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
           photoURL: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png',
         });
       }
+      successAlert('Account Created Successfully')
     } catch (error) {
-      console.log(error);
+      errorAlert('Failed to create')
     }
   };
 
   const sigInUser = (email: string, password: string): void => {
-    signInWithEmailAndPassword(auth, email, password);
+    signInWithEmailAndPassword(auth, email, password).then(() => successAlert('Sign In Successfully')) 
   };
 
   const logOut = (): void => {
-    signOut(auth);
+    signOut(auth).then(() => successAlert('Sign Out Successfully'))
     setUser(null);
   };
 

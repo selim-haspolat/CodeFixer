@@ -4,6 +4,7 @@ import { db } from "../auth/firebase";
 import { useAuthContext } from "../context/AuthContext";
 import { SetCommentInfo } from "../models/comments.model";
 import { Problems } from "../models/displayProblems.model";
+import { warningAlert } from "./SweetAler";
 
 const CreateComment = ({
   commentInfo,
@@ -14,38 +15,43 @@ const CreateComment = ({
   const commentInput = useRef<HTMLInputElement>(null);
 
   const addComment = async () => {
-    await setDoc(doc(db, "problems", `${commentInfo?.id}`), {
-      ...commentInfo,
-      comments: commentInfo?.comments
-        ? [
-            ...commentInfo?.comments,
-            {
-              comment: commentInput?.current?.value,
-              sender: user?.displayName,
-              senderPhoto: user?.photoURL,
-            },
-          ]
-        : [
-            {
-              comment: commentInput?.current?.value,
-              sender: user?.displayName,
-              senderPhoto: user?.photoURL,
-            },
-          ],
-    });
+    if (user) {
+      await setDoc(doc(db, "problems", `${commentInfo?.id}`), {
+        ...commentInfo,
+        comments: commentInfo?.comments
+          ? [
+              ...commentInfo?.comments,
+              {
+                comment: commentInput?.current?.value,
+                sender: user?.displayName,
+                senderPhoto: user?.photoURL,
+              },
+            ]
+          : [
+              {
+                comment: commentInput?.current?.value,
+                sender: user?.displayName,
+                senderPhoto: user?.photoURL,
+              },
+            ],
+      });
 
-    setFirst?.(`${new Date().getTime()}`);
+      setFirst?.(`${new Date().getTime()}`);
 
-    const docRef = doc(db, "problems", `${commentInfo?.id}`);
-    const docSnap = await getDoc(docRef);
+      const docRef = doc(db, "problems", `${commentInfo?.id}`);
+      const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      setCommentInfo(
-        (prevState) =>
-          ({ ...prevState, ...docSnap.data(), id: docSnap.id } as Problems)
-      );
-    } else {
-      console.log("No such document!");
+      if (docSnap.exists()) {
+        setCommentInfo(
+          (prevState) =>
+            ({ ...prevState, ...docSnap.data(), id: docSnap.id } as Problems)
+        );
+      } else {
+        console.log("No such document!");
+      }
+    }
+    else {
+      warningAlert('You must Login')
     }
   };
 

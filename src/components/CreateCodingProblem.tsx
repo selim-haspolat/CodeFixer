@@ -2,6 +2,8 @@ import { useRef } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../auth/firebase";
 import { useAuthContext } from "../context/AuthContext";
+import { warningAlert } from "./SweetAler";
+
 
 const CreateCodingProblem = ({
   setFirst,
@@ -14,16 +16,20 @@ const CreateCodingProblem = ({
   const problemInput = useRef<HTMLInputElement>(null);
 
   const addProblems = () => {
-    addDoc(collection(db, `problems`), {
-      user: user?.email,
-      name: user?.displayName,
-      userImage: user?.photoURL,
-      createdAt: `${new Date().toLocaleTimeString()} | ${new Date().toLocaleDateString()}`,
-      description: problemInput?.current?.value,
-      solved: false,
-      interesting: [],
-      comments: [],
-    });
+    if (user?.email) {
+      addDoc(collection(db, `problems`), {
+        user: user?.email,
+        name: user?.displayName,
+        userImage: user?.photoURL,
+        createdAt: `${new Date().toLocaleTimeString()} | ${new Date().toLocaleDateString()}`,
+        description: problemInput?.current?.value,
+        solved: false,
+        interesting: [],
+        comments: [],
+      });
+    } else {
+      warningAlert('You must Login')
+    }
     setFirst(problemInput?.current?.value || "");
   };
 
@@ -81,10 +87,7 @@ const CreateCodingProblem = ({
                 </g>
               </svg>
             </button>
-            <button
-              type="submit"
-              className="absolute w-10 z-[2]"
-            >
+            <button type="submit" className="absolute w-10 z-[2]">
               <svg
                 viewBox="0 0 24 24"
                 fill="none"

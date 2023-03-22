@@ -20,7 +20,7 @@ const Navbar = () => {
         <div>
           <button
             onClick={() => setShowHamburgerMenu(!showHamburgerMenu)}
-            className={`block border-0 bg-transparent py-1.5 px-2.5 text-neutral-200 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 sm:hidden ${
+            className={`block border-0 bg-transparent py-1.5 px-2.5 text-neutral-200 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 md:hidden ${
               showHamburgerMenu && "rotate-180"
             } transition-transform duration-300`}
           >
@@ -39,11 +39,19 @@ const Navbar = () => {
               </svg>
             </span>
           </button>
-          <Link to="/" className="hidden sm:block pr-2 text-xl font-semibold">
+          <Link to="/" className="hidden md:block pr-2 text-xl font-semibold">
             CodeFixer
           </Link>
         </div>
-        <ul className="sm:flex justify-center items-center hidden ">
+        <ul className="md:flex justify-center items-center hidden ">
+          <li className="p-2">
+            <Link
+              to="/"
+              className="text-white disabled:text-black/30 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+            >
+              Home
+            </Link>
+          </li>
           <li className="p-2">
             <Link
               to="/coding-problems"
@@ -107,8 +115,8 @@ const Navbar = () => {
       </nav>
       <ul
         className={`absolute bg-black w-full top-16 flex flex-col gap-3 ${
-          showHamburgerMenu ? "h-28 px-6 pb-3" : "h-0"
-        } sm:h-0 sm:pb-0 sm:px-0 duration-300 transition-all overflow-hidden z-10`}
+          showHamburgerMenu ? "h-36 px-6 pb-3" : "h-0"
+        } md:h-0 md:pb-0 md:px-0 duration-300 transition-all overflow-hidden z-10`}
       >
         <li>
           <Link
@@ -118,6 +126,16 @@ const Navbar = () => {
             }`}
           >
             CodeFixer
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/"
+            className={`text-white disabled:text-black/30 [&.active]:text-black/90 dark:[&.active]:text-neutral-400 opacity-0 duration-500 ${
+              showHamburgerMenu && "!opacity-100"
+            }`}
+          >
+            Home
           </Link>
         </li>
         <li>

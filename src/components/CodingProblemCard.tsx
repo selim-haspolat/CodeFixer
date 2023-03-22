@@ -61,8 +61,6 @@ const CodingProblemCard = (props: Props) => {
     setCommentInfo(problem);
   };
 
-  console.log(problem);
-
   return (
     <div className="rounded overflow-hidden shadow-sm hover:shadow-lg transition-shadow m-4 border border-gray-200">
       <div className="flex gap-3 items-center p-3 pr-5">
@@ -76,9 +74,12 @@ const CodingProblemCard = (props: Props) => {
         />
         <div>{problem.name}</div>
       </div>
+      <div className="px-2 break-words">
+
       <code className="text-gray-700 text-base px-6">
         {problem.description}
       </code>
+      </div>
       <div className="px-6 pb-2 pt-4 flex justify-between items-center">
         <div className="flex gap-7">
           <button onClick={toogleInterest} className="flex items-center">
