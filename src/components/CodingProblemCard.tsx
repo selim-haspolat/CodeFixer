@@ -131,7 +131,7 @@ const CodingProblemCard = (props: Props) => {
             <span className="text-sm">{problem.comments.length}</span>
           </button>
         </div>
-        <span className="text-sm text-gray-600">2 hours ago</span>
+        <span className="text-sm text-gray-600">{problem.createdAt}</span>
       </div>
     </div>
   );
