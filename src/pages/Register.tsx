@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import signup from "../assets/signup.svg";
 import { useAuthContext } from "../context/AuthContext";
@@ -11,7 +11,7 @@ const Register = () => {
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
 
-  const { createUser } = useAuthContext();
+  const { createUser, user } = useAuthContext();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,7 +31,10 @@ const Register = () => {
         className="w-72 md:w-96 lg:max-w-[500px] lg:w-[40%]"
         alt="sign up svg"
       />
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-72 md:w-96">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-3 w-72 md:w-96"
+      >
         <h1 className="text-center text-4xl mb-5 font-light">Register</h1>
         <div className="flex gap-2">
           <input
