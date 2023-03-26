@@ -7,6 +7,7 @@ This project aims to create a forum app. That provides users to find their quest
 https://code-fixer.vercel.app/
 
 ## Gif
+![code-fixer](https://user-images.githubusercontent.com/118964736/227782218-372bc102-fddd-4635-9767-4509e84030b4.gif)
 
 
 ## Built with
