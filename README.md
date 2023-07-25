@@ -1,7 +1,7 @@
 # CodeFixer
 
 ## About
-This project aims to create a forum app. That provides users to find their questions answers .
+This project aims to create a forum app. That provides users to find their questions and answers .
 
 ## Live
 https://code-fixer.vercel.app/
